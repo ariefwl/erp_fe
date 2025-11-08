@@ -1,0 +1,8 @@
+services:
+  frontend:
+    build: ./
+    container_name: erp-fe
+    ports:
+    - '8004:80'
+    restart: unless-stopped
+

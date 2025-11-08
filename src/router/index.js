@@ -22,23 +22,8 @@ const routes = [
           ),
       },
       {
-        path: '/theme',
-        name: 'Theme',
-        redirect: '/theme/typography',
-      },
-      {
-        path: '/theme/colors',
-        name: 'Colors',
-        component: () => import('@/views/theme/Colors.vue'),
-      },
-      {
-        path: '/theme/typography',
-        name: 'Typography',
-        component: () => import('@/views/theme/Typography.vue'),
-      },
-      {
-        path: '/base',
-        name: 'Base',
+        path: '/report/beacukai',
+        name: 'Inv. Report BC',
         component: {
           render() {
             return h(resolveComponent('router-view'))
@@ -47,14 +32,14 @@ const routes = [
         redirect: '/base/breadcrumbs',
         children: [
           {
-            path: '/base/accordion',
-            name: 'Accordion',
-            component: () => import('@/views/base/Accordion.vue'),
+            path: '/report/beacukai/pemasukanBB',
+            name: 'Pemasukan Bahan Baku',
+            component: () => import('@/views/report/beacukai/pemasukanBB.vue'),
           },
           {
-            path: '/base/breadcrumbs',
-            name: 'Breadcrumbs',
-            component: () => import('@/views/base/Breadcrumbs.vue'),
+            path: '/report/beacukai/pemakaianBB',
+            name: 'Pemakaian Bahan Baku',
+            component: () => import('@/views/report/beacukai/pemakaianBB.vue'), // () => import('@/views/base/Breadcrumbs.vue'),
           },
           {
             path: '/base/cards',
