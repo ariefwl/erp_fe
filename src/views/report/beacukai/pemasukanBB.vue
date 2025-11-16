@@ -1,5 +1,5 @@
 <template>
-  <CCard class="p-4">
+  <CCard>
     <CCardHeader>
       <strong>Pemasukkan Bahan Baku</strong>
     </CCardHeader>
@@ -21,14 +21,14 @@
         </CFormSelect>
 
         <CButton color="primary" class="ms-3" @click="exportPDF" :disabled="!selectedPeriod">
-          <CIcon icon="cil-cloud-download" /> Cetak
+          <CIcon icon="cil-cloud-download" /> Download
         </CButton>
       </div>
 
       <!-- Table -->
       <div class="table-responsive text-nowrap">
         <CTable hover bordered small>
-          <CTableHead color="light">
+          <CTableHead align="center" color="light">
             <CTableRow>
               <CTableHeaderCell>No</CTableHeaderCell>
               <CTableHeaderCell>Tgl. Rekam</CTableHeaderCell>
@@ -59,13 +59,13 @@
 
           <CTableBody>
             <CTableRow v-if="loading">
-              <CTableDataCell colspan="10" class="text-center">
+              <CTableDataCell colspan="13" class="text-center">
                 <CSpinner size="sm" color="primary" /> Loading data...
               </CTableDataCell>
             </CTableRow>
 
             <CTableRow v-else-if="purchases.length === 0">
-              <CTableDataCell colspan="10" class="text-center">
+              <CTableDataCell colspan="13" class="text-center">
                 Tidak ada data
               </CTableDataCell>
             </CTableRow>

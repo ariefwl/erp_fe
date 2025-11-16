@@ -9,17 +9,12 @@ const routes = [
     name: 'Home',
     component: DefaultLayout,
     redirect: '/dashboard',
+    meta: { requiresAuth: true },
     children: [
       {
         path: '/dashboard',
         name: 'Dashboard',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () =>
-          import(
-            /* webpackChunkName: "dashboard" */ '@/views/dashboard/Dashboard.vue'
-          ),
+        component: () => import('@/views/dashboard/Dashboard.vue'),
       },
       {
         path: '/report/beacukai',
@@ -42,70 +37,70 @@ const routes = [
             component: () => import('@/views/report/beacukai/pemakaianBB.vue'), // () => import('@/views/base/Breadcrumbs.vue'),
           },
           {
-            path: '/base/cards',
-            name: 'Cards',
-            component: () => import('@/views/base/Cards.vue'),
+            path: '/report/beacukai/pemasukanHP',
+            name: 'Pemasukan Hasil Produksi',
+            component: () => import('@/views/report/beacukai/pemasukanHP.vue'),
           },
           {
-            path: '/base/carousels',
-            name: 'Carousels',
-            component: () => import('@/views/base/Carousels.vue'),
+            path: '/report/beacukai/pengeluaranHP',
+            name: 'Pengeluaran Hasil Produksi',
+            component: () => import('@/views/report/beacukai/pengeluaranHP.vue'), // () => import('@/views/base/Carousels.vue'),
           },
           {
-            path: '/base/collapses',
-            name: 'Collapses',
-            component: () => import('@/views/base/Collapses.vue'),
+            path: '/report/beacukai/mutasiBB',
+            name: 'Mutasi Bahan Baku',
+            component: () => import('@/views/report/beacukai/mutasiBB.vue'), // () => import('@/views/base/Collapses.vue'),
           },
           {
-            path: '/base/list-groups',
-            name: 'List Groups',
-            component: () => import('@/views/base/ListGroups.vue'),
+            path: '/report/beacukai/mutasiHP',
+            name: 'Mutasi Hasil Produksi',
+            component: () => import('@/views/report/beacukai/mutasiHP.vue'), // () => import('@/views/base/ListGroups.vue'),
           },
           {
-            path: '/base/navs',
-            name: 'Navs',
-            component: () => import('@/views/base/Navs.vue'),
+            path: '/report/beacukai/waste',
+            name: 'Penyelesaian Waste/Scrape',
+            component: () => import('@/views/report/beacukai/waste.vue'), // () => import('@/views/base/Navs.vue'),
           },
-          {
-            path: '/base/paginations',
-            name: 'Paginations',
-            component: () => import('@/views/base/Paginations.vue'),
-          },
-          {
-            path: '/base/placeholders',
-            name: 'Placeholders',
-            component: () => import('@/views/base/Placeholders.vue'),
-          },
-          {
-            path: '/base/popovers',
-            name: 'Popovers',
-            component: () => import('@/views/base/Popovers.vue'),
-          },
-          {
-            path: '/base/progress',
-            name: 'Progress',
-            component: () => import('@/views/base/Progress.vue'),
-          },
-          {
-            path: '/base/spinners',
-            name: 'Spinners',
-            component: () => import('@/views/base/Spinners.vue'),
-          },
-          {
-            path: '/base/tables',
-            name: 'Tables',
-            component: () => import('@/views/base/Tables.vue'),
-          },
-          {
-            path: '/base/tabs',
-            name: 'Tabs',
-            component: () => import('@/views/base/Tabs.vue'),
-          },
-          {
-            path: '/base/tooltips',
-            name: 'Tooltips',
-            component: () => import('@/views/base/Tooltips.vue'),
-          },
+          // {
+          //   path: '/base/paginations',
+          //   name: 'Paginations',
+          //   component: () => import('@/views/base/Paginations.vue'),
+          // },
+          // {
+          //   path: '/base/placeholders',
+          //   name: 'Placeholders',
+          //   component: () => import('@/views/base/Placeholders.vue'),
+          // },
+          // {
+          //   path: '/base/popovers',
+          //   name: 'Popovers',
+          //   component: () => import('@/views/base/Popovers.vue'),
+          // },
+          // {
+          //   path: '/base/progress',
+          //   name: 'Progress',
+          //   component: () => import('@/views/base/Progress.vue'),
+          // },
+          // {
+          //   path: '/base/spinners',
+          //   name: 'Spinners',
+          //   component: () => import('@/views/base/Spinners.vue'),
+          // },
+          // {
+          //   path: '/base/tables',
+          //   name: 'Tables',
+          //   component: () => import('@/views/base/Tables.vue'),
+          // },
+          // {
+          //   path: '/base/tabs',
+          //   name: 'Tabs',
+          //   component: () => import('@/views/base/Tabs.vue'),
+          // },
+          // {
+          //   path: '/base/tooltips',
+          //   name: 'Tooltips',
+          //   component: () => import('@/views/base/Tooltips.vue'),
+          // },
         ],
       },
       {
@@ -290,6 +285,11 @@ const routes = [
       },
     ],
   },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('@/views/auth/login'), 
+  }
 ]
 
 const router = createRouter({
@@ -299,6 +299,16 @@ const router = createRouter({
     // always scroll to top
     return { top: 0 }
   },
+})
+
+router.beforeEach((to, from, next) => {
+  const isAuthenticated = localStorage.getItem('user')
+
+  if (to.meta.requiresAuth && !isAuthenticated) {
+    next('/login')
+  } else {
+    next()
+  }
 })
 
 export default router

@@ -29,6 +29,31 @@ export default [
         name: 'Pemakaian Bahan Baku',
         to: '/report/beacukai/pemakaianBB',
       },
+      {
+        component: 'CNavItem',
+        name: 'Pemasukan Hasil Prod.',
+        to: '/report/beacukai/pemasukanHP',
+      },
+      {
+        component: 'CNavItem',
+        name: 'Pengeluaran Hasil Prod.',
+        to: '/report/beacukai/pengeluaranHP',
+      },
+      {
+        component: 'CNavItem',
+        name: 'Mutasi Bahan Baku',
+        to: '/report/beacukai/mutasiBB',
+      },
+      {
+        component: 'CNavItem',
+        name: 'Mutasi Hasil Produksi',
+        to: '/report/beacukai/mutasiHP',
+      },
+      {
+        component: 'CNavItem',
+        name: 'Penyelesaian Waste',
+        to: '/report/beacukai/waste',
+      },
     ],
   },
 ]

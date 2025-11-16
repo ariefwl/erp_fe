@@ -1,78 +1,78 @@
 <template>
-    <CCard>
-        <CCardHeader>
-            <strong>Pemakaian Bahan Baku</strong>
-        </CCardHeader>  
+  <CCard>
+      <CCardHeader>
+          <strong>Pemakaian Bahan Baku</strong>
+      </CCardHeader>  
 
-        <CCardBody>
-            <div class="d-flex align-items-center mb-3">
-                <label class="me-2 fw-semibold ms-3">Periode:</label>
+      <CCardBody>
+          <div class="d-flex align-items-center mb-3">
+              <label class="me-2 fw-semibold ms-3">Periode:</label>
 
-                <CFormSelect :value="selectedPeriod" @change="onChangePeriod" class="w-auto">
-                <option value="">-- Pilih Periode --</option>
+              <CFormSelect :value="selectedPeriod" @change="onChangePeriod" class="w-auto">
+              <option value="">-- Pilih Periode --</option>
 
-                <!-- Group per tahun -->
-                <optgroup v-for="(months, year) in groupedPeriods" :key="year" :label="year">
-                    <option v-for="p in months" :key="p.value" :value="p.value">
-                    {{ p.label }}
-                    </option>
-                </optgroup>
-                </CFormSelect>
+              <!-- Group per tahun -->
+              <optgroup v-for="(months, year) in groupedPeriods" :key="year" :label="year">
+                  <option v-for="p in months" :key="p.value" :value="p.value">
+                  {{ p.label }}
+                  </option>
+              </optgroup>
+              </CFormSelect>
 
-                <CButton color="primary" class="ms-3" @click="exportPDF" :disabled="!selectedPeriod">
-                <CIcon icon="cil-cloud-download" /> Cetak
-                </CButton>
-            </div>
+              <CButton color="primary" class="ms-3" @click="exportPDF" :disabled="!selectedPeriod">
+              <CIcon icon="cil-cloud-download" /> Cetak
+              </CButton>
+          </div>
 
-            <div class="table-responsive text-nowrap">
-                <CTable hover bordered small>
-                    <CTableHead color="light">
-                        <CTableRow>
-                            <CTableHeaderCell>No</CTableHeaderCell>
-                            <CTableHeaderCell>No. Transaksi</CTableHeaderCell>
-                            <CTableHeaderCell>Tanggal</CTableHeaderCell>
-                            <CTableHeaderCell>Kode Barang</CTableHeaderCell>
-                            <CTableHeaderCell>Nama Barang</CTableHeaderCell>
-                            <CTableHeaderCell>Satuan</CTableHeaderCell>
-                            <CTableHeaderCell>Jumlah Digunakan</CTableHeaderCell>
-                            <CTableHeaderCell>Jumlah di SubKontrakan</CTableHeaderCell>
-                            <CTableHeaderCell>Nama SubKontrak</CTableHeaderCell>
-                            <CTableHeaderCell>Fasilitas</CTableHeaderCell>
-                            <CTableHeaderCell>Waste Qty</CTableHeaderCell>
-                        </CTableRow>
-                    </CTableHead>
+          <div class="table-responsive text-nowrap">
+              <CTable hover bordered small>
+                  <CTableHead align="center" color="light">
+                      <CTableRow>
+                          <CTableHeaderCell>No</CTableHeaderCell>
+                          <CTableHeaderCell>No. Transaksi</CTableHeaderCell>
+                          <CTableHeaderCell>Tanggal</CTableHeaderCell>
+                          <CTableHeaderCell>Kode Barang</CTableHeaderCell>
+                          <CTableHeaderCell>Nama Barang</CTableHeaderCell>
+                          <CTableHeaderCell>Satuan</CTableHeaderCell>
+                          <CTableHeaderCell>Jumlah Digunakan</CTableHeaderCell>
+                          <CTableHeaderCell>Jumlah di SubKontrakan</CTableHeaderCell>
+                          <CTableHeaderCell>Nama SubKontrak</CTableHeaderCell>
+                          <CTableHeaderCell>Fasilitas</CTableHeaderCell>
+                          <CTableHeaderCell>Waste Qty</CTableHeaderCell>
+                      </CTableRow>
+                  </CTableHead>
 
-                    <CTableBody>
-                        <CTableRow v-if="loading">
-                            <CTableDataCell colspan="10" class="text-center">
-                                <CSpinner size="sm" color="primary" /> Loading data...
-                            </CTableDataCell>
-                        </CTableRow>
+                  <CTableBody>
+                      <CTableRow v-if="loading">
+                          <CTableDataCell colspan="11" class="text-center">
+                              <CSpinner size="sm" color="primary" /> Loading data...
+                          </CTableDataCell>
+                      </CTableRow>
 
-                        <CTableRow v-else-if="matUses.length === 0">
-                            <CTableDataCell colspan="5" class="text-center">
-                                Tidak ada data  
-                            </CTableDataCell>
-                        </CTableRow>
+                      <CTableRow v-else-if="matUses.length === 0">
+                          <CTableDataCell colspan="11" class="text-center">
+                              Tidak ada data  
+                          </CTableDataCell>
+                      </CTableRow>
 
-                        <CTableRow v-else v-for="(item, index) in matUses" :key="index">
-                            <CTableDataCell>{{ index + 1 }}</CTableDataCell>
-                            <CTableDataCell>{{ item.MUNo }}</CTableDataCell>
-                            <CTableDataCell>{{ formatDate(item.MUDate) }}</CTableDataCell>
-                            <CTableDataCell>{{ item.ItemCode }}</CTableDataCell>
-                            <CTableDataCell>{{ item.InvName }}</CTableDataCell>
-                            <CTableDataCell>{{ item.Unit }}</CTableDataCell>
-                            <CTableDataCell class="text-end">{{ formatNumber(item.Qty) }}</CTableDataCell>
-                            <CTableDataCell class="text-end">{{ formatNumber(item.SubConQty) }}</CTableDataCell>
-                            <CTableDataCell>{{ item.SubContract }}</CTableDataCell>
-                            <CTableDataCell>{{ item.FacilitiesName }}</CTableDataCell>
-                            <CTableDataCell class="text-end">{{ formatNumber(item.WasteQty) }}</CTableDataCell>
-                        </CTableRow>
-                    </CTableBody>
-                </CTable>
-            </div>
-        </CCardBody>
-    </CCard>
+                      <CTableRow v-else v-for="(item, index) in matUses" :key="index">
+                          <CTableDataCell>{{ index + 1 }}</CTableDataCell>
+                          <CTableDataCell>{{ item.MUNo }}</CTableDataCell>
+                          <CTableDataCell>{{ formatDate(item.MUDate) }}</CTableDataCell>
+                          <CTableDataCell>{{ item.ItemCode }}</CTableDataCell>
+                          <CTableDataCell>{{ item.InvName }}</CTableDataCell>
+                          <CTableDataCell>{{ item.Unit }}</CTableDataCell>
+                          <CTableDataCell class="text-end">{{ formatNumber(item.Qty) }}</CTableDataCell>
+                          <CTableDataCell class="text-end">{{ formatNumber(item.SubConQty) }}</CTableDataCell>
+                          <CTableDataCell>{{ item.SubContract }}</CTableDataCell>
+                          <CTableDataCell>{{ item.FacilitiesName }}</CTableDataCell>
+                          <CTableDataCell class="text-end">{{ formatNumber(item.WasteQty) }}</CTableDataCell>
+                      </CTableRow>
+                  </CTableBody>
+              </CTable>
+          </div>
+      </CCardBody>
+  </CCard>
 </template>
 
 <script setup>
@@ -140,8 +140,8 @@ async function fetchMatUseData(){
       ? `http://127.0.0.1:3001/api/material-use?period=${selectedPeriod.value}`
       : `http://127.0.0.1:3001/api/material-use`
     // const url = selectedPeriod.value
-    //   ? `http://103.255.240.205:3000/api/mat-use?period=${selectedPeriod.value}`
-    //   : `http://103.255.240.205:3000/api/mat-use`
+    //   ? `http://103.255.240.205:3000/api/material-use?period=${selectedPeriod.value}`
+    //   : `http://103.255.240.205:3000/api/material-use`
     const res = await axios.get(url)
     matUses.value = res.data
   } catch (err) {
