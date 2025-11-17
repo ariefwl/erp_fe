@@ -213,12 +213,12 @@ function onChangePeriod(e) {
 async function fetchPurchaseData() {
   loading.value = true
   try {
-    const url = selectedPeriod.value
-      ? `http://127.0.0.1:3001/api/purchase?period=${selectedPeriod.value}`
-      : `http://127.0.0.1:3001/api/purchase`
     // const url = selectedPeriod.value
-    //   ? `http://103.255.240.205:3000/api/purchase?period=${selectedPeriod.value}`
-    //   : `http://103.255.240.205:3000/api/purchase`
+    //   ? `http://127.0.0.1:3001/api/purchase?period=${selectedPeriod.value}`
+    //   : `http://127.0.0.1:3001/api/purchase`
+    const url = selectedPeriod.value
+      ? `https://api.jansenindonesia.com/api/purchase?period=${selectedPeriod.value}`
+      : `https://api.jansenindonesia.com/api/purchase`
     const res = await axios.get(url)
     purchases.value = res.data
   } catch (err) {

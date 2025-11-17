@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-center align-items-center vh-100">
     <CCard class="p-4" style="width: 350px">
       <CImage :src="logo" />
-      <h7 class="text-center fw-bold mb-3">IT. Inventory Management System</h7>
+      <h6 class="text-center fw-bold mb-3">IT. Inventory Management System</h6>
       <CForm @submit.prevent="submitLogin">
         <CFormInput
           class="mb-3"
@@ -43,7 +43,7 @@ async function submitLogin() {
   errorMsg.value = "";
 
   try {
-    const res = await axios.post("http://127.0.0.1:3001/api/auth/login", {
+    const res = await axios.post("https://api.jansenindonesia.com/api/auth/login", {
       username: username.value,
       password: password.value,
     });

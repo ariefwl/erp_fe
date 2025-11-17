@@ -136,12 +136,12 @@ function onChangePeriod(e) {
 async function fetchMatUseData(){
   loading.value = true
   try {
-    const url = selectedPeriod.value
-      ? `http://127.0.0.1:3001/api/material-use?period=${selectedPeriod.value}`
-      : `http://127.0.0.1:3001/api/material-use`
     // const url = selectedPeriod.value
-    //   ? `http://103.255.240.205:3000/api/material-use?period=${selectedPeriod.value}`
-    //   : `http://103.255.240.205:3000/api/material-use`
+    //   ? `http://127.0.0.1:3001/api/material-use?period=${selectedPeriod.value}`
+    //   : `http://127.0.0.1:3001/api/material-use`
+    const url = selectedPeriod.value
+      ? `https://api.jansenindonesia.com/api/material-use?period=${selectedPeriod.value}`
+      : `https://api.jansenindonesia.com/api/material-use`
     const res = await axios.get(url)
     matUses.value = res.data
   } catch (err) {

@@ -145,12 +145,12 @@ async function exportPDF() {
 async function fetchMutasiData() {
     loading.value = true
     try {
-        const url = selectedPeriod.value
-            ? `http://127.0.0.1:3001/api/material-mutation?period=${selectedPeriod.value}`
-            : `http://127.0.0.1:3001/api/material-mutation`
-            // const url = selectedPeriod.value
-            //   ? `http://103.255.240.205:3000/api/purchase?period=${selectedPeriod.value}`
-            //   : `http://103.255.240.205:3000/api/purchase`
+        // const url = selectedPeriod.value
+        //     ? `http://127.0.0.1:3001/api/material-mutation?period=${selectedPeriod.value}`
+        //     : `http://127.0.0.1:3001/api/material-mutation`
+            const url = selectedPeriod.value
+              ? `https://api.jansenindonesia.com/api/material-mutation?period=${selectedPeriod.value}`
+              : `https://api.jansenindonesia.com/api/material-mutation`
         const res = await axios.get(url)
         matMutt.value = res.data
     } catch (error) {

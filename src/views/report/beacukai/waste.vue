@@ -144,12 +144,12 @@ async function exportPDF() {
 async function fetchWasteData() {
     loading.value = true
     try {
+        // const url = selectedPeriod.value
+        //     ? `http://127.0.0.1:3001/api/waste?period=${selectedPeriod.value}`
+        //     : `http://127.0.0.1:3001/api/waste`
         const url = selectedPeriod.value
-            ? `http://127.0.0.1:3001/api/waste?period=${selectedPeriod.value}`
-            : `http://127.0.0.1:3001/api/waste`
-            // const url = selectedPeriod.value
-            //   ? `http://103.255.240.205:3000/api/purchase?period=${selectedPeriod.value}`
-            //   : `http://103.255.240.205:3000/api/purchase`
+            ? `https://api.jansenindonesia.com/api/waste?period=${selectedPeriod.value}`
+            : `https://api.jansenindonesia.com/api/waste`
         const res = await axios.get(url)
         waste.value = res.data
     } catch (error) {
